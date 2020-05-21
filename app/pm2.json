@@ -1,0 +1,25 @@
+{
+    "apps": [
+      {
+        "name": "server",
+        "script": "./server.js",
+        "env": {
+          "NODE_PATH": "."
+        }
+      },
+      {
+        "name": "generator",
+        "script": "./generator.js",
+        "env": {
+          "NODE_PATH": "."
+        }
+      },
+      {
+        "name": "database",
+        "script": "./database.js",
+        "env": {
+          "NODE_PATH": "."
+        }
+      }
+    ]
+}

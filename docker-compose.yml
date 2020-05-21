@@ -1,0 +1,29 @@
+version: "2"
+
+services:
+
+  app:
+    build: ./app/
+    environment:
+      - DB__HOST=db
+      - DB__PORT=5432
+      - NATS_SERVER=nats://nats:4222
+    ports:
+      - 127.0.0.1:8881:8881
+    links:
+      - db
+      - nats
+    depends_on:
+      - db
+      - nats
+
+  db:
+    build: ./db/
+    expose:
+      - 5432
+
+  nats:
+    build: ./nats/
+    expose:
+      - 4222
+      - 8222

@@ -1,0 +1,25 @@
+{
+  "name": "test_example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "db.js",
+  "scripts": {
+    "start": "cross-env NODE_PATH=. npx pm2-runtime start pm2.json",
+    "start:server": "cross-env NODE_PATH=. node server.js",
+    "start:generator": "cross-env NODE_PATH=. node generator.js",
+    "start:database": "cross-env NODE_PATH=. node database.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nats": "^1.4.9",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "pm2": "^4.4.0",
+    "sequelize": "^5.21.10",
+    "socket.io": "^2.3.0"
+  }
+}

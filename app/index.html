@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		const socket = io.connect('/');
+
+		let arr = [];
+
+		setInterval(() => {
+			let data = arr;
+
+			let content = '';
+
+			for (let i = 0; i < data.data.length; i++) {
+				content += '<tr>';
+
+				if (i === 0) {
+					for (key in data.data[i]) {
+						content += '<td style="font-weight: bold; padding: 0 5px">' + key.toUpperCase() + '</td>';
+					}
+				}
+				else {
+					for (key in data.data[i]) {
+						content += '<td ';
+
+						if (data.data[i][key] === 0) {
+							content += 'style="background: rgb(255, 255, 255)"';
+						}
+
+						if (-1 <= data.data[i][key] && data.data[i][key] < 0) {
+							content += 'style="background: rgba(255, 140, 0, ' + data.data[i][key] * -1 + '); color: black;"';
+						}
+
+						if (0 < data.data[i][key] && data.data[i][key] <= 1) {
+							content += 'style="background: rgba(0, 0, 0, ' + data.data[i][key] + '); color: white;"';
+						}
+
+						content += '>' + data.data[i][key] + '</td>';
+					}
+				}
+				content += '</tr>';
+			}
+
+			for (let i = 0; i <= 19; i++) {
+				if (i === 0) {
+					content += '<tr style="background: blanchedalmond; font-weight: bold"><td>ИТОГО</td>';
+				}
+
+				content += '<td>' + data.total[document.getElementsByTagName('select')[0].value][i] + '</td>';
+
+				if (i === 20) {
+					content += '</tr>';
+				}
+			}
+
+			document.getElementById('info').innerHTML = content;
+		}, 1000);
+
+		socket.on('notify', (data) => {
+			arr = data;
+		});
+	</script>
+</head>
+<body>
+<table id="info" border="1" style="border-collapse: collapse;"></table>
+<select>
+	<option value="sum" selected>sum</option>
+	<option value="min">min</option>
+	<option value="max">max</option>
+	<option value="avg">avg</option>
+</select>
+</body>
+</html>
